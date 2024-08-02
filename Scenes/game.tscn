@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://dkqdr74jfv06a"]
+
+[ext_resource type="Script" path="res://Scenes/path.gd" id="1_tkyns"]
+[ext_resource type="Texture2D" uid="uid://dfc7c5ubbfky7" path="res://Assets/Road.png" id="2_v5di0"]
+[ext_resource type="Script" path="res://Scenes/player.gd" id="3_meqjs"]
+
+[sub_resource type="Curve2D" id="Curve2D_idbbu"]
+bake_interval = 50.0
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 263, 381, -5.01104, 68.5667, 5.01104, -68.5667, 271, -147, 18.414, 59.7669, -18.414, -59.7669, 241, -403, -184.078, 28.4678, 184.078, -28.4678, 426, -648, 0, 0, 0, 0, 1382, -494)
+}
+point_count = 5
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tln7t"]
+radius = 24.0
+height = 96.0
+
+[node name="Game" type="Node2D"]
+texture_filter = 1
+
+[node name="Path" type="Path2D" parent="."]
+position = Vector2(-7, 11)
+curve = SubResource("Curve2D_idbbu")
+script = ExtResource("1_tkyns")
+Update = true
+
+[node name="Road" type="Line2D" parent="Path"]
+texture_repeat = 2
+points = PackedVector2Array(263, 381, 263.138, 361.125, 263.309, 338.149, 263.545, 308.142, 263.846, 272.349, 264.21, 232.017, 264.635, 188.389, 265.121, 142.712, 265.665, 96.2324, 266.267, 50.1943, 266.924, 5.84387, 267.636, -35.5734, 268.401, -72.812, 269.218, -104.626, 271, -147, 271.905, -175.235, 271.016, -207.522, 268.565, -242.373, 264.784, -278.3, 259.906, -313.814, 254.161, -347.428, 247.781, -377.653, 241, -403, 236.112, -429.519, 236.252, -462.492, 242.907, -499.278, 257.566, -537.237, 281.716, -573.729, 316.847, -606.114, 338.994, -619.941, 364.445, -631.751, 393.385, -641.214, 426, -648, 467.071, -650.962, 492.151, -650.769, 519.929, -649.556, 550.154, -647.396, 582.58, -644.359, 616.955, -640.519, 653.033, -635.947, 690.563, -630.716, 729.296, -624.897, 768.984, -618.562, 809.378, -611.784, 850.228, -604.634, 891.286, -597.185, 932.303, -589.508, 973.029, -581.675, 1013.22, -573.76, 1052.61, -565.833, 1090.98, -557.966, 1128.05, -550.233, 1163.59, -542.704, 1197.35, -535.452, 1229.07, -528.548, 1258.51, -522.066, 1285.42, -516.076, 1309.55, -510.651, 1348.47, -501.785, 1382, -494)
+width = 150.0
+texture = ExtResource("2_v5di0")
+texture_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="Player" type="CharacterBody2D" parent="."]
+script = ExtResource("3_meqjs")
+
+[node name="Col" type="CollisionShape2D" parent="Player"]
+shape = SubResource("CapsuleShape2D_tln7t")
