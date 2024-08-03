@@ -3,6 +3,8 @@ extends CanvasLayer
 var save := SaveFile.new()
 var safe := "01S01)9u3j1js0nnxnm09JDS01DSS10))*@*jJS"
 
+var player : Player
+
 func saveData() :
 	
 	var file := FileAccess.open_encrypted_with_pass("user://save1.dat", FileAccess.WRITE,safe)

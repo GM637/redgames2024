@@ -1,21 +1,89 @@
-[gd_scene load_steps=15 format=3 uid="uid://dkqdr74jfv06a"]
+[gd_scene load_steps=33 format=3 uid="uid://dkqdr74jfv06a"]
 
+[ext_resource type="Script" path="res://Scenes/game.gd" id="1_8sinw"]
 [ext_resource type="Script" path="res://Scenes/path.gd" id="1_tkyns"]
 [ext_resource type="Texture2D" uid="uid://dfc7c5ubbfky7" path="res://Assets/Road.png" id="2_v5di0"]
 [ext_resource type="Script" path="res://Scenes/player.gd" id="3_meqjs"]
+[ext_resource type="Texture2D" uid="uid://kogk0y8jjfed" path="res://Assets/NakedRoad.png" id="3_tq03e"]
 [ext_resource type="Texture2D" uid="uid://oxirvbqgov8h" path="res://Assets/Car.png" id="4_qi03k"]
 [ext_resource type="Texture2D" uid="uid://0tti3101cqou" path="res://Assets/smoke.png" id="5_5jckg"]
 [ext_resource type="Texture2D" uid="uid://ckwb3vb8xjop7" path="res://Assets/grass.png" id="5_id1i5"]
-[ext_resource type="Script" path="res://Scenes/gameui.gd" id="6_s36ri"]
+[ext_resource type="Texture2D" uid="uid://b6xs3imprgymu" path="res://Assets/coin.png" id="6_e4o34"]
 [ext_resource type="Texture2D" uid="uid://gisawo7qd8ll" path="res://Assets/cloud.png" id="6_yhhpp"]
-[ext_resource type="Texture2D" uid="uid://dxyrs1tu1k2nm" path="res://Assets/wheel.png" id="8_h38pa"]
+[ext_resource type="Texture2D" uid="uid://bu720sol8xvvh" path="res://Assets/cone.png" id="7_wpsmu"]
+[ext_resource type="Script" path="res://Scenes/billboard.gd" id="10_jff2p"]
+[ext_resource type="Texture2D" uid="uid://cfdhdn7ukaegd" path="res://Assets/bush.png" id="11_epgcn"]
+[ext_resource type="Texture2D" uid="uid://lvt2bmf3a2v3" path="res://Assets/assets.png" id="14_bm6gg"]
 
 [sub_resource type="Curve2D" id="Curve2D_idbbu"]
 bake_interval = 50.0
 _data = {
-"points": PackedVector2Array(374.005, -7.77505, 0, 0, 263, 541, 20.3182, 258.861, -20.3182, -258.861, 263, -187, -36.1556, 467.122, 36.1556, -467.122, 353.389, -1354.81, -72.9728, 313.703, 0, 0, 375, -2219)
+"points": PackedVector2Array(374.005, -7.77505, 0, 0, 239, 965, 20.3182, 258.861, -20.3182, -258.861, 263, -187)
 }
-point_count = 4
+point_count = 2
+
+[sub_resource type="Animation" id="Animation_q2fa2"]
+resource_name = "Loop"
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.5), Vector2(-0.5, 0.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:offset")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -24)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o6m6g"]
+_data = {
+"Loop": SubResource("Animation_q2fa2")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ofjcw"]
+radius = 16.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uj88y"]
+radius = 16.0
+height = 176.0
+
+[sub_resource type="Animation" id="Animation_b6twg"]
+resource_name = "Loop"
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:skew")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.0872665]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7kkvb"]
+_data = {
+"Loop": SubResource("Animation_b6twg")
+}
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tln7t"]
 radius = 24.0
@@ -28,43 +96,224 @@ point_count = 3
 [sub_resource type="Gradient" id="Gradient_ncpum"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_orp6l"]
-size = Vector2(64, 128)
+[sub_resource type="Animation" id="Animation_48g6m"]
+resource_name = "Fade"
+length = 0.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.8, 1), Vector2(1, -2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:offset")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -18), Vector2(0, -36)]
+}
 
-[node name="Game" type="Node2D"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xqs7r"]
+_data = {
+"Fade": SubResource("Animation_48g6m")
+}
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_pgm0o"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i3iis"]
+resource_local_to_scene = true
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_pgm0o")
+uv1_scale = Vector3(6, 6, 6)
+uv1_offset = Vector3(15.5, 1.5, 0)
+
+[sub_resource type="SphereMesh" id="SphereMesh_ulcu4"]
+resource_local_to_scene = true
+radius = 5.0
+height = 10.0
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_b10va"]
+sky_top_color = Color(0.322917, 0.606061, 1, 1)
+sky_horizon_color = Color(0.595052, 0.798406, 1, 1)
+ground_bottom_color = Color(0.0572917, 0.587565, 1, 1)
+ground_horizon_color = Color(0.595052, 0.798406, 1, 1)
+
+[sub_resource type="Sky" id="Sky_5fqhf"]
+sky_material = SubResource("ProceduralSkyMaterial_b10va")
+
+[sub_resource type="Environment" id="Environment_0i5t4"]
+background_mode = 2
+sky = SubResource("Sky_5fqhf")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="World" type="Node2D"]
 texture_filter = 1
 
-[node name="Path" type="Path2D" parent="."]
+[node name="Holder" type="Node2D" parent="."]
+texture_filter = 1
+script = ExtResource("1_8sinw")
+
+[node name="Game" type="Node2D" parent="Holder"]
+texture_filter = 1
+
+[node name="Path" type="Path2D" parent="Holder/Game"]
 position = Vector2(-7, 11)
 curve = SubResource("Curve2D_idbbu")
 script = ExtResource("1_tkyns")
 Update = true
 
-[node name="Road" type="Line2D" parent="Path"]
+[node name="Road" type="Line2D" parent="Holder/Game/Path"]
 texture_repeat = 2
-points = PackedVector2Array(263, 541, 263.833, 520.336, 264.741, 495.999, 265.857, 463.652, 267.092, 424.291, 268.357, 378.911, 268.973, 354.274, 269.563, 328.506, 270.115, 301.731, 270.619, 274.073, 271.064, 245.656, 271.438, 216.606, 271.73, 187.046, 271.929, 157.101, 272.024, 126.895, 272.003, 96.5529, 271.856, 66.1987, 271.572, 35.957, 271.138, 5.9521, 270.545, -23.6915, 269.78, -52.8495, 268.834, -81.3973, 267.693, -109.211, 266.348, -136.165, 264.788, -162.136, 263, -187, 261.369, -211.799, 260.27, -237.642, 259.677, -264.499, 259.567, -292.341, 259.916, -321.14, 260.698, -350.867, 261.89, -381.492, 263.467, -412.988, 265.405, -445.324, 267.679, -478.473, 270.264, -512.405, 273.138, -547.091, 276.274, -582.503, 279.649, -618.612, 283.238, -655.389, 287.017, -692.805, 290.961, -730.831, 295.047, -769.438, 299.249, -808.598, 303.543, -848.281, 307.906, -888.458, 312.311, -929.102, 316.736, -970.183, 321.155, -1011.67, 325.545, -1053.54, 329.88, -1095.76, 334.137, -1138.3, 338.291, -1181.13, 342.318, -1224.22, 346.192, -1267.56, 349.891, -1311.09, 353.389, -1354.81, 356.425, -1397.49, 358.788, -1438.04, 360.531, -1476.57, 361.705, -1513.19, 362.363, -1548.01, 362.556, -1581.14, 362.337, -1612.69, 361.757, -1642.79, 360.869, -1671.54, 359.724, -1699.05, 358.376, -1725.43, 356.875, -1750.81, 353.624, -1798.97, 350.388, -1844.44, 347.584, -1888.1, 345.627, -1930.87, 344.935, -1973.64, 345.922, -2017.32, 349.006, -2062.79, 354.603, -2110.96, 358.474, -2136.34, 363.129, -2162.73, 368.62, -2190.25, 375, -2219)
+points = PackedVector2Array(239, 965, 240.865, 926.117, 242.956, 880.87, 244.222, 852.774, 245.607, 821.402, 247.093, 787.035, 248.659, 749.951, 250.285, 710.431, 251.951, 668.754, 253.638, 625.2, 255.324, 580.049, 256.992, 533.58, 258.619, 486.073, 260.187, 437.807, 261.676, 389.063, 263.065, 340.12, 264.335, 291.257, 265.466, 242.755, 266.437, 194.893, 267.229, 147.95, 267.822, 102.207, 268.195, 57.9428, 268.33, 15.4374, 268.206, -25.0296, 267.802, -63.1786, 267.1, -98.7298, 266.079, -131.404, 264.719, -160.92, 263, -187)
 width = 200.0
 texture = ExtResource("2_v5di0")
 texture_mode = 1
 metadata/_edit_lock_ = true
 
-[node name="Timer" type="Timer" parent="Path"]
-wait_time = 2.0
-autostart = true
+[node name="Road2" type="Line2D" parent="Holder/Game/Path"]
+texture_repeat = 2
+points = PackedVector2Array(239, 965, 240.865, 926.117, 242.956, 880.87, 244.222, 852.774, 245.607, 821.402, 247.093, 787.035, 248.659, 749.951, 250.285, 710.431, 251.951, 668.754, 253.638, 625.2, 255.324, 580.049, 256.992, 533.58, 258.619, 486.073, 260.187, 437.807, 261.676, 389.063, 263.065, 340.12, 264.335, 291.257, 265.466, 242.755, 266.437, 194.893, 267.229, 147.95, 267.822, 102.207, 268.195, 57.9428, 268.33, 15.4374, 268.206, -25.0296, 267.802, -63.1786, 267.1, -98.7298, 266.079, -131.404, 264.719, -160.92, 263, -187)
+width = 200.0
+texture = ExtResource("3_tq03e")
+texture_mode = 1
+metadata/_edit_lock_ = true
 
-[node name="Player" type="CharacterBody2D" parent="."]
+[node name="Coin" type="Area2D" parent="Holder/Game/Path"]
+position = Vector2(7, -11)
+script = ExtResource("10_jff2p")
+
+[node name="Anim" type="AnimationPlayer" parent="Holder/Game/Path/Coin"]
+root_node = NodePath("../Sprite")
+libraries = {
+"": SubResource("AnimationLibrary_o6m6g")
+}
+autoplay = "Loop"
+
+[node name="Sprite" type="Sprite2D" parent="Holder/Game/Path/Coin"]
+position = Vector2(0, -18.3258)
+scale = Vector2(0.294055, 0.5)
+texture = ExtResource("6_e4o34")
+offset = Vector2(0, -4.94267)
+
+[node name="Sprite2" type="Sprite2D" parent="Holder/Game/Path/Coin/Sprite"]
+modulate = Color(0, 0, 0, 0.536)
+show_behind_parent = true
+position = Vector2(0, 36.6667)
+rotation = 3.14159
+scale = Vector2(1, -0.245)
+texture = ExtResource("6_e4o34")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Holder/Game/Path/Coin"]
+position = Vector2(0, -18.3258)
+shape = SubResource("CircleShape2D_ofjcw")
+
+[node name="Bush" type="Area2D" parent="Holder/Game/Path"]
+position = Vector2(111, 53)
+script = ExtResource("10_jff2p")
+
+[node name="Sprite" type="Sprite2D" parent="Holder/Game/Path/Bush"]
+skew = 0.0121575
+texture = ExtResource("11_epgcn")
+offset = Vector2(0, -22.415)
+
+[node name="Sprite2" type="Sprite2D" parent="Holder/Game/Path/Bush/Sprite"]
+modulate = Color(0, 0, 0, 0.2)
+show_behind_parent = true
+position = Vector2(0.149048, -0.0196304)
+rotation = 3.14159
+scale = Vector2(2.645, -0.648)
+texture = ExtResource("6_e4o34")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Holder/Game/Path/Bush"]
+rotation = 1.57079
+shape = SubResource("CapsuleShape2D_uj88y")
+
+[node name="Anim" type="AnimationPlayer" parent="Holder/Game/Path/Bush"]
+libraries = {
+"": SubResource("AnimationLibrary_7kkvb")
+}
+autoplay = "Loop"
+
+[node name="Cone" type="Area2D" parent="Holder/Game/Path"]
+position = Vector2(15, 133)
+script = ExtResource("10_jff2p")
+
+[node name="Sprite" type="Sprite2D" parent="Holder/Game/Path/Cone"]
+skew = 0.0121575
+texture = ExtResource("7_wpsmu")
+offset = Vector2(0, -22.415)
+
+[node name="Sprite2" type="Sprite2D" parent="Holder/Game/Path/Cone/Sprite"]
+modulate = Color(0, 0, 0, 0.2)
+show_behind_parent = true
+position = Vector2(0.179033, -6.02008)
+rotation = 3.14159
+scale = Vector2(1.085, -0.446)
+texture = ExtResource("6_e4o34")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Holder/Game/Path/Cone"]
+rotation = 1.57079
+shape = SubResource("CapsuleShape2D_uj88y")
+
+[node name="Anim" type="AnimationPlayer" parent="Holder/Game/Path/Cone"]
+libraries = {
+"": SubResource("AnimationLibrary_7kkvb")
+}
+autoplay = "Loop"
+
+[node name="Player" type="CharacterBody2D" parent="Holder/Game"]
 position = Vector2(288, 336)
 script = ExtResource("3_meqjs")
 
-[node name="Car" type="Sprite2D" parent="Player"]
+[node name="Car" type="Sprite2D" parent="Holder/Game/Player"]
 position = Vector2(0, 8)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("4_qi03k")
 
-[node name="Col" type="CollisionShape2D" parent="Player"]
+[node name="Col" type="CollisionShape2D" parent="Holder/Game/Player"]
 shape = SubResource("CapsuleShape2D_tln7t")
 
-[node name="Grass" type="Sprite2D" parent="Player"]
+[node name="Grass" type="Sprite2D" parent="Holder/Game/Player"]
 show_behind_parent = true
 top_level = true
 z_index = -100
@@ -72,9 +321,10 @@ texture_repeat = 2
 position = Vector2(296, 248)
 texture = ExtResource("5_id1i5")
 region_enabled = true
-region_rect = Rect2(0, 0, 1440, 1440)
+region_rect = Rect2(0, 0, 2000, 2000)
+metadata/_edit_lock_ = true
 
-[node name="Cloud" type="Sprite2D" parent="Player"]
+[node name="Cloud" type="Sprite2D" parent="Holder/Game/Player"]
 modulate = Color(0, 0, 0, 0.286)
 show_behind_parent = true
 top_level = true
@@ -84,18 +334,20 @@ position = Vector2(296, 248)
 scale = Vector2(3, 3)
 texture = ExtResource("6_yhhpp")
 region_enabled = true
-region_rect = Rect2(-999, 0, 1440, 1440)
+region_rect = Rect2(-999, 0, 720, 720)
+metadata/_edit_lock_ = true
 
-[node name="Cam" type="Camera2D" parent="Player"]
+[node name="Cam" type="Camera2D" parent="Holder/Game/Player"]
+unique_name_in_owner = true
 offset = Vector2(0, -120)
-zoom = Vector2(0.8, 0.8)
+zoom = Vector2(0.75, 0.75)
 process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 3.0
 rotation_smoothing_enabled = true
 rotation_smoothing_speed = 2.0
 
-[node name="Smoke" type="CPUParticles2D" parent="Player"]
+[node name="Smoke" type="CPUParticles2D" parent="Holder/Game/Player"]
 position = Vector2(16, 48)
 amount = 4
 texture = ExtResource("5_5jckg")
@@ -105,42 +357,48 @@ angle_max = 291.9
 scale_amount_curve = SubResource("Curve_jtax1")
 color_ramp = SubResource("Gradient_ncpum")
 
-[node name="UI" type="CanvasLayer" parent="."]
-script = ExtResource("6_s36ri")
+[node name="Drift" type="Sprite2D" parent="Holder/Game/Player"]
+visible = false
+modulate = Color(1, 1, 1, 0)
+top_level = true
+position = Vector2(0, 56)
+scale = Vector2(1, -2)
+texture = ExtResource("14_bm6gg")
+offset = Vector2(0, -36)
+region_enabled = true
+region_rect = Rect2(189, 422, 168, 46)
 
-[node name="Control" type="Control" parent="UI"]
-texture_filter = 1
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Fade" type="AnimationPlayer" parent="Holder/Game/Player/Drift"]
+libraries = {
+"": SubResource("AnimationLibrary_xqs7r")
+}
+speed_scale = 0.5
 
-[node name="DownLeft" type="Control" parent="UI/Control"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -40.0
-offset_right = 40.0
-grow_vertical = 0
+[node name="SmokeDrift" type="Node2D" parent="Holder/Game/Player"]
+position = Vector2(0, 56)
 
-[node name="Wheel" type="Sprite2D" parent="UI/Control/DownLeft"]
-position = Vector2(80, -32)
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("8_h38pa")
+[node name="Boost" type="Timer" parent="Holder/Game/Player"]
+wait_time = 0.075
+autostart = true
 
-[node name="Left" type="TouchScreenButton" parent="UI/Control/DownLeft"]
-position = Vector2(40, -72)
-shape = SubResource("RectangleShape2D_orp6l")
-passby_press = true
-action = "ui_left"
+[node name="SubViewport" type="SubViewport" parent="."]
+unique_name_in_owner = true
+canvas_item_default_texture_filter = 0
+size = Vector2i(1280, 960)
 
-[node name="Right" type="TouchScreenButton" parent="UI/Control/DownLeft"]
-position = Vector2(120, -72)
-shape = SubResource("RectangleShape2D_orp6l")
-passby_press = true
-action = "ui_right"
+[node name="Surface" type="MeshInstance3D" parent="."]
+material_overlay = SubResource("StandardMaterial3D_i3iis")
+mesh = SubResource("SphereMesh_ulcu4")
 
-[connection signal="timeout" from="Path/Timer" to="Path" method="add_road"]
+[node name="Camera3D" type="Camera3D" parent="Surface"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Surface"]
+environment = SubResource("Environment_0i5t4")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Surface"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[connection signal="visibility_changed" from="Holder/Game/Player/Drift" to="Holder/Game/Player/Drift/Fade" method="play" binds= ["Fade"]]
+[connection signal="timeout" from="Holder/Game/Player/Boost" to="Holder/Game/Player" method="_on_boost_timeout"]

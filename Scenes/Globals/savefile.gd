@@ -9,4 +9,4 @@ class_name SaveFile
 
 @export var music = 0.5
 @export var sfx = 0.5
-@export var camera_rot = true
+@export var camera_rot = false

@@ -1,20 +1,23 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://bllm132j4e1tp"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://bllm132j4e1tp"]
 
 [ext_resource type="FontFile" uid="uid://cuothqjn7hkej" path="res://Hip Horay.ttf" id="1_na16e"]
+[ext_resource type="Texture2D" uid="uid://lvt2bmf3a2v3" path="res://Assets/assets.png" id="2_p3mkw"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_olur7"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0widf"]
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-bg_color = Color(0.1, 0.1, 0.1, 0.6)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ohreq"]
+texture = ExtResource("2_p3mkw")
+texture_margin_left = 17.0
+texture_margin_top = 18.0
+texture_margin_right = 17.0
+texture_margin_bottom = 19.0
+expand_margin_left = 12.0
+expand_margin_top = 12.0
+expand_margin_right = 12.0
+expand_margin_bottom = 12.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+region_rect = Rect2(436, 404, 152, 156)
 
 [resource]
 default_base_scale = 2.0
@@ -29,4 +32,4 @@ Label/constants/shadow_outline_size = 4
 Label/font_sizes/font_size = 16
 Label/fonts/font = ExtResource("1_na16e")
 Label/styles/normal = SubResource("StyleBoxEmpty_olur7")
-Panel/styles/panel = SubResource("StyleBoxFlat_0widf")
+Panel/styles/panel = SubResource("StyleBoxTexture_ohreq")
