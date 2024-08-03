@@ -6,7 +6,7 @@ extends Area2D
 	#$Anim.play("Loop")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	
 	if GameGlobal.player :
 		scale.y = lerp(scale.y , -sign(global_position.y - GameGlobal.player.global_position.y ), 0.05)

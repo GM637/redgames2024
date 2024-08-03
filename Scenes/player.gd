@@ -1,5 +1,5 @@
 extends CharacterBody2D
-class_name Player
+class_name PlayerCar
 
 var direction = 0.0
 
@@ -8,7 +8,7 @@ var SPEED = 250.0
 
 var turn = 0.0
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	
 	GameGlobal.player = self
 	
@@ -43,3 +43,23 @@ func _on_boost_timeout() -> void:
 		d.global_position = $SmokeDrift.global_position
 		d.global_rotation_degrees = global_rotation_degrees
 		d.show()
+
+func add_coin() :
+	
+	GameGlobal.save.Coins += 1
+	GameGlobal.coin()
+	$SFX/Coin.play()
+
+
+func _on_detect_area_entered(area: Area2D) -> void:
+	
+	if  area.is_in_group("Coin") :
+		add_coin()
+		
+		var d = $CoinFx.duplicate() as Sprite2D
+		
+		add_child(d)
+		d.global_position = area.global_position
+		d.show()
+		
+		area.queue_free()

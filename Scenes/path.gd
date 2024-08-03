@@ -13,10 +13,11 @@ var rot = 0.0
 
 func _ready() -> void:
 	
-	for i in range(50) :
-		add_road()
+	if !Engine.is_editor_hint() :
+		for i in range(50) :
+			add_road()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	
 	if Update :
 		var polygon = curve.get_baked_points()
@@ -47,7 +48,6 @@ func add_road() :
 
 func calculate_curve_control_points(point_a: Vector2, point_b: Vector2) :
 	
-	var midpoint: Vector2 = (point_a + point_b) / 2
 	var direction_vector: Vector2 = point_b - point_a
 	var normalized_direction: Vector2 = direction_vector.normalized()
 	var in_control_b: Vector2 = -normalized_direction * (point_a.distance_to(point_b) / 2.5)
@@ -63,7 +63,7 @@ func add_prop() :
 			# coins thing
 			var dir = ( float( randi_range(0,1) ) - 0.5) * 2
 			
-			for i in randi_range(0,15) :
+			for i in randi_range(0,10) :
 				
 				var trans = curve.sample_baked_with_rotation( curve.get_closest_offset(curve.get_point_position(curr)) + (i*64) )
 				var pos = trans.origin + (Vector2.RIGHT.rotated(trans.get_rotation()) * 256 * dir)
@@ -87,7 +87,6 @@ func add_prop() :
 			# bush thing
 			
 			for i in randi_range(0,5) :
-				var dir = ( float( randi_range(0,1) ) - 0.5) * 2
 				
 				var trans = curve.sample_baked_with_rotation( curve.get_closest_offset(curve.get_point_position(curr)) + (i*90) )
 				var pos = trans.origin + Vector2(randf_range(-256,256),randf_range(-256,256))

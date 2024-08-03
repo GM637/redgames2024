@@ -13,6 +13,7 @@ config_version=5
 config/name="Buds World Adventure"
 run/main_scene="res://Scenes/game.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
+boot_splash/bg_color=Color(0, 0, 0, 1)
 config/icon="res://icon.svg"
 
 [autoload]
@@ -27,7 +28,6 @@ window/size/viewport_width=480
 window/size/viewport_height=360
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
-window/handheld/orientation=1
 
 [editor_plugins]
 
@@ -47,6 +47,14 @@ folder_colors={
 
 theme/custom="res://Theme.tres"
 theme/custom_font="res://Hip Horay.ttf"
+
+[importer_defaults]
+
+animation_library={
+"fbx/embedded_image_handling": 3,
+"fbx/importer": 1,
+"gltf/embedded_image_handling": 3
+}
 
 [quiver]
 

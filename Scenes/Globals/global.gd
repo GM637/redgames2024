@@ -3,7 +3,7 @@ extends CanvasLayer
 var save := SaveFile.new()
 var safe := "01S01)9u3j1js0nnxnm09JDS01DSS10))*@*jJS"
 
-var player : Player
+var player : PlayerCar
 
 func saveData() :
 	
@@ -34,3 +34,8 @@ func loadData() :
 		
 		print("Loaded :")
 		print(var_to_str(save))
+
+func coin() :
+	$Control/Coin/Coin/Coin3/Pop.stop()
+	$Control/Coin/Coin/Coin3/Pop.play("Pop")
+	$Control/Coin.text = str(save.Coins).pad_zeros(4)

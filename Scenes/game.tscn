@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://dkqdr74jfv06a"]
+[gd_scene load_steps=40 format=3 uid="uid://dkqdr74jfv06a"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_8sinw"]
 [ext_resource type="Script" path="res://Scenes/path.gd" id="1_tkyns"]
@@ -14,6 +14,9 @@
 [ext_resource type="Script" path="res://Scenes/billboard.gd" id="10_jff2p"]
 [ext_resource type="Texture2D" uid="uid://cfdhdn7ukaegd" path="res://Assets/bush.png" id="11_epgcn"]
 [ext_resource type="Texture2D" uid="uid://lvt2bmf3a2v3" path="res://Assets/assets.png" id="14_bm6gg"]
+[ext_resource type="AudioStream" uid="uid://bxp7qll88rjyv" path="res://Assets/SFX/coin.mp3" id="15_pf4d7"]
+[ext_resource type="Script" path="res://Scenes/gameui.gd" id="16_bm7o5"]
+[ext_resource type="Texture2D" uid="uid://dxyrs1tu1k2nm" path="res://Assets/wheel.png" id="17_371yy"]
 
 [sub_resource type="Curve2D" id="Curve2D_idbbu"]
 bake_interval = 50.0
@@ -89,12 +92,9 @@ _data = {
 radius = 24.0
 height = 96.0
 
-[sub_resource type="Curve" id="Curve_jtax1"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.652672, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.426415), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="Gradient" id="Gradient_ncpum"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iau05"]
+radius = 32.0
+height = 112.0
 
 [sub_resource type="Animation" id="Animation_48g6m"]
 resource_name = "Fade"
@@ -148,13 +148,68 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0, -18), Vector2(0, -36)]
+"values": [Vector2(0, -18), Vector2(0, -24)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xqs7r"]
 _data = {
 "Fade": SubResource("Animation_48g6m")
 }
+
+[sub_resource type="Animation" id="Animation_uucxq"]
+resource_name = "Pop"
+length = 0.3
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.3, 0.3), Vector2(0.5, -0.5), Vector2(1, 1), Vector2(-1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(5, 5, 5, 1), Color(5, 5, 5, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f40we"]
+_data = {
+"Pop": SubResource("Animation_uucxq")
+}
+
+[sub_resource type="Curve" id="Curve_jtax1"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.652672, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.426415), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_ncpum"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_pgm0o"]
 viewport_path = NodePath("SubViewport")
@@ -165,6 +220,7 @@ shading_mode = 0
 albedo_texture = SubResource("ViewportTexture_pgm0o")
 uv1_scale = Vector3(6, 6, 6)
 uv1_offset = Vector3(15.5, 1.5, 0)
+texture_filter = 0
 
 [sub_resource type="SphereMesh" id="SphereMesh_ulcu4"]
 resource_local_to_scene = true
@@ -185,6 +241,9 @@ background_mode = 2
 sky = SubResource("Sky_5fqhf")
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_647q1"]
+size = Vector2(128, 128)
 
 [node name="World" type="Node2D"]
 texture_filter = 1
@@ -218,7 +277,8 @@ texture = ExtResource("3_tq03e")
 texture_mode = 1
 metadata/_edit_lock_ = true
 
-[node name="Coin" type="Area2D" parent="Holder/Game/Path"]
+[node name="Coin" type="Area2D" parent="Holder/Game/Path" groups=["Coin"]]
+z_index = 1
 position = Vector2(7, -11)
 script = ExtResource("10_jff2p")
 
@@ -248,6 +308,7 @@ position = Vector2(0, -18.3258)
 shape = SubResource("CircleShape2D_ofjcw")
 
 [node name="Bush" type="Area2D" parent="Holder/Game/Path"]
+z_index = 1
 position = Vector2(111, 53)
 script = ExtResource("10_jff2p")
 
@@ -275,6 +336,7 @@ libraries = {
 autoplay = "Loop"
 
 [node name="Cone" type="Area2D" parent="Holder/Game/Path"]
+z_index = 1
 position = Vector2(15, 133)
 script = ExtResource("10_jff2p")
 
@@ -347,24 +409,33 @@ position_smoothing_speed = 3.0
 rotation_smoothing_enabled = true
 rotation_smoothing_speed = 2.0
 
-[node name="Smoke" type="CPUParticles2D" parent="Holder/Game/Player"]
-position = Vector2(16, 48)
-amount = 4
-texture = ExtResource("5_5jckg")
-gravity = Vector2(0, 0)
-angle_min = -311.4
-angle_max = 291.9
-scale_amount_curve = SubResource("Curve_jtax1")
-color_ramp = SubResource("Gradient_ncpum")
+[node name="Detect" type="Area2D" parent="Holder/Game/Player"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Holder/Game/Player/Detect"]
+shape = SubResource("CapsuleShape2D_iau05")
+
+[node name="SFX" type="Node2D" parent="Holder/Game/Player"]
+
+[node name="Coin" type="AudioStreamPlayer" parent="Holder/Game/Player/SFX"]
+stream = ExtResource("15_pf4d7")
+bus = &"SFX"
+
+[node name="Engine" type="AudioStreamPlayer" parent="Holder/Game/Player/SFX"]
+bus = &"SFX"
+
+[node name="Drift" type="AudioStreamPlayer" parent="Holder/Game/Player/SFX"]
+bus = &"SFX"
+
+[node name="SmokeDrift" type="Node2D" parent="Holder/Game/Player"]
+position = Vector2(0, 56)
 
 [node name="Drift" type="Sprite2D" parent="Holder/Game/Player"]
 visible = false
-modulate = Color(1, 1, 1, 0)
 top_level = true
 position = Vector2(0, 56)
-scale = Vector2(1, -2)
+scale = Vector2(0.8, 1)
 texture = ExtResource("14_bm6gg")
-offset = Vector2(0, -36)
+offset = Vector2(0, -18)
 region_enabled = true
 region_rect = Rect2(189, 422, 168, 46)
 
@@ -374,12 +445,32 @@ libraries = {
 }
 speed_scale = 0.5
 
-[node name="SmokeDrift" type="Node2D" parent="Holder/Game/Player"]
-position = Vector2(0, 56)
+[node name="CoinFx" type="Sprite2D" parent="Holder/Game/Player"]
+visible = false
+modulate = Color(1, 1, 1, 0)
+top_level = true
+rotation = -3.14159
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("6_e4o34")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Holder/Game/Player/CoinFx"]
+libraries = {
+"": SubResource("AnimationLibrary_f40we")
+}
 
 [node name="Boost" type="Timer" parent="Holder/Game/Player"]
 wait_time = 0.075
 autostart = true
+
+[node name="Smoke" type="CPUParticles2D" parent="Holder/Game/Player"]
+position = Vector2(16, 48)
+amount = 4
+texture = ExtResource("5_5jckg")
+gravity = Vector2(0, 0)
+angle_min = -311.4
+angle_max = 291.9
+scale_amount_curve = SubResource("Curve_jtax1")
+color_ramp = SubResource("Gradient_ncpum")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 unique_name_in_owner = true
@@ -400,5 +491,54 @@ environment = SubResource("Environment_0i5t4")
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("16_bm7o5")
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DownLeft" type="Control" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = -40.0
+offset_right = 80.0
+grow_vertical = 0
+
+[node name="Left" type="TouchScreenButton" parent="CanvasLayer/Control/DownLeft"]
+position = Vector2(8, -16)
+scale = Vector2(0.75, 0.75)
+shape = SubResource("RectangleShape2D_647q1")
+action = "ui_left"
+
+[node name="Right" type="TouchScreenButton" parent="CanvasLayer/Control/DownLeft"]
+position = Vector2(120, -16)
+scale = Vector2(0.75, 0.75)
+shape = SubResource("RectangleShape2D_647q1")
+action = "ui_right"
+
+[node name="Wheel" type="Sprite2D" parent="CanvasLayer/Control/DownLeft"]
+position = Vector2(64, -16)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("17_371yy")
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/DownLeft"]
+layout_mode = 0
+offset_left = -8.0
+offset_top = -56.0
+offset_right = 136.0
+offset_bottom = -36.0
+text = "Steer"
+horizontal_alignment = 1
+
+[connection signal="area_entered" from="Holder/Game/Player/Detect" to="Holder/Game/Player" method="_on_detect_area_entered"]
 [connection signal="visibility_changed" from="Holder/Game/Player/Drift" to="Holder/Game/Player/Drift/Fade" method="play" binds= ["Fade"]]
+[connection signal="visibility_changed" from="Holder/Game/Player/CoinFx" to="Holder/Game/Player/CoinFx/AnimationPlayer" method="play" binds= ["Pop"]]
 [connection signal="timeout" from="Holder/Game/Player/Boost" to="Holder/Game/Player" method="_on_boost_timeout"]

@@ -7,6 +7,8 @@ class_name SaveFile
 		Score = num
 @export var Highscore = 0
 
+@export var Coins = 0
+
 @export var music = 0.5
 @export var sfx = 0.5
 @export var camera_rot = false
