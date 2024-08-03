@@ -1,4 +1,4 @@
-extends Node
+extends CanvasLayer
 
 var save := SaveFile.new()
 var safe := "01S01)9u3j1js0nnxnm09JDS01DSS10))*@*jJS"

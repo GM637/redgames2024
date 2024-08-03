@@ -1,0 +1,87 @@
+[gd_scene load_steps=5 format=3 uid="uid://bmyqt85klqt5x"]
+
+[ext_resource type="Script" path="res://Scenes/Globals/global.gd" id="1_jpiya"]
+[ext_resource type="Texture2D" uid="uid://b6xs3imprgymu" path="res://Assets/coin.png" id="2_2xkd4"]
+
+[sub_resource type="Animation" id="Animation_d0ibs"]
+resource_name = "Pop"
+length = 0.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.469178, 0.469178), Vector2(-0.639, 0.639), Vector2(0.469178, 0.469178)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(5, 5, 5, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p85m2"]
+_data = {
+"Pop": SubResource("Animation_d0ibs")
+}
+
+[node name="GlobalUI" type="CanvasLayer"]
+script = ExtResource("1_jpiya")
+
+[node name="Control" type="Control" parent="."]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Coin" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 24.0
+offset_right = 141.0
+offset_bottom = 52.0
+theme_override_font_sizes/font_size = 24
+text = "000"
+
+[node name="Coin" type="Sprite2D" parent="Control/Coin"]
+position = Vector2(-22, 11)
+scale = Vector2(0.469178, 0.469178)
+texture = ExtResource("2_2xkd4")
+
+[node name="Coin2" type="Sprite2D" parent="Control/Coin/Coin"]
+modulate = Color(0, 0, 0, 0.271)
+show_behind_parent = true
+position = Vector2(4.26277, 4.26278)
+scale = Vector2(1, 1)
+texture = ExtResource("2_2xkd4")
+
+[node name="Anim" type="Sprite2D" parent="Control/Coin"]
+position = Vector2(-22, 11)
+scale = Vector2(0.469178, 0.469178)
+texture = ExtResource("2_2xkd4")
+
+[node name="Pop" type="AnimationPlayer" parent="Control/Coin/Anim"]
+libraries = {
+"": SubResource("AnimationLibrary_p85m2")
+}
+
+[node name="Panel" type="Panel" parent="Control/Coin"]
+show_behind_parent = true
+offset_left = -48.0
+offset_right = 64.0
+offset_bottom = 24.0

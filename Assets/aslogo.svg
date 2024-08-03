@@ -1,0 +1,16 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1289 1190" width="1289" height="1190">
+	<title>airasiacom_logo-svg</title>
+	<defs>
+		<clipPath clipPathUnits="userSpaceOnUse" id="cp1">
+			<path d="m-2-305.62h6832.11v1495.39h-6832.11z"/>
+		</clipPath>
+	</defs>
+	<style>
+		.s0 { fill: #ff0000 } 
+	</style>
+	<g id="Clip-Path" clip-path="url(#cp1)">
+		<g id="Layer">
+			<path id="Layer" fill-rule="evenodd" class="s0" d="m912 29.4h376.3l-171.6 1129.3h-374.3l24.8-109.6c-93 109.6-206.7 140.7-339.1 140.7-237.8 0-428-198.6-428-513 0-390.9 260.5-676.3 558.3-676.3 95.1 0 272.9 12.4 332.9 130.3l20.7-99.3zm-88.9 558.5c0-124.7-100.3-225.5-224.4-225.5-124.1 0-224.4 100.8-224.4 225.5 0 124.6 100.3 225.4 224.4 225.4 124.1 0 224.4-100.8 224.4-225.4z"/>
+		</g>
+	</g>
+</svg>

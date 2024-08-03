@@ -1,19 +1,35 @@
-[gd_scene load_steps=6 format=3 uid="uid://dkqdr74jfv06a"]
+[gd_scene load_steps=15 format=3 uid="uid://dkqdr74jfv06a"]
 
 [ext_resource type="Script" path="res://Scenes/path.gd" id="1_tkyns"]
 [ext_resource type="Texture2D" uid="uid://dfc7c5ubbfky7" path="res://Assets/Road.png" id="2_v5di0"]
 [ext_resource type="Script" path="res://Scenes/player.gd" id="3_meqjs"]
+[ext_resource type="Texture2D" uid="uid://oxirvbqgov8h" path="res://Assets/Car.png" id="4_qi03k"]
+[ext_resource type="Texture2D" uid="uid://0tti3101cqou" path="res://Assets/smoke.png" id="5_5jckg"]
+[ext_resource type="Texture2D" uid="uid://ckwb3vb8xjop7" path="res://Assets/grass.png" id="5_id1i5"]
+[ext_resource type="Script" path="res://Scenes/gameui.gd" id="6_s36ri"]
+[ext_resource type="Texture2D" uid="uid://gisawo7qd8ll" path="res://Assets/cloud.png" id="6_yhhpp"]
+[ext_resource type="Texture2D" uid="uid://dxyrs1tu1k2nm" path="res://Assets/wheel.png" id="8_h38pa"]
 
 [sub_resource type="Curve2D" id="Curve2D_idbbu"]
 bake_interval = 50.0
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 263, 381, -5.01104, 68.5667, 5.01104, -68.5667, 271, -147, 18.414, 59.7669, -18.414, -59.7669, 241, -403, -184.078, 28.4678, 184.078, -28.4678, 426, -648, 0, 0, 0, 0, 1382, -494)
+"points": PackedVector2Array(374.005, -7.77505, 0, 0, 263, 541, 20.3182, 258.861, -20.3182, -258.861, 263, -187, -36.1556, 467.122, 36.1556, -467.122, 353.389, -1354.81, -72.9728, 313.703, 0, 0, 375, -2219)
 }
-point_count = 5
+point_count = 4
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tln7t"]
 radius = 24.0
 height = 96.0
+
+[sub_resource type="Curve" id="Curve_jtax1"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.652672, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.426415), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_ncpum"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_orp6l"]
+size = Vector2(64, 128)
 
 [node name="Game" type="Node2D"]
 texture_filter = 1
@@ -26,14 +42,105 @@ Update = true
 
 [node name="Road" type="Line2D" parent="Path"]
 texture_repeat = 2
-points = PackedVector2Array(263, 381, 263.138, 361.125, 263.309, 338.149, 263.545, 308.142, 263.846, 272.349, 264.21, 232.017, 264.635, 188.389, 265.121, 142.712, 265.665, 96.2324, 266.267, 50.1943, 266.924, 5.84387, 267.636, -35.5734, 268.401, -72.812, 269.218, -104.626, 271, -147, 271.905, -175.235, 271.016, -207.522, 268.565, -242.373, 264.784, -278.3, 259.906, -313.814, 254.161, -347.428, 247.781, -377.653, 241, -403, 236.112, -429.519, 236.252, -462.492, 242.907, -499.278, 257.566, -537.237, 281.716, -573.729, 316.847, -606.114, 338.994, -619.941, 364.445, -631.751, 393.385, -641.214, 426, -648, 467.071, -650.962, 492.151, -650.769, 519.929, -649.556, 550.154, -647.396, 582.58, -644.359, 616.955, -640.519, 653.033, -635.947, 690.563, -630.716, 729.296, -624.897, 768.984, -618.562, 809.378, -611.784, 850.228, -604.634, 891.286, -597.185, 932.303, -589.508, 973.029, -581.675, 1013.22, -573.76, 1052.61, -565.833, 1090.98, -557.966, 1128.05, -550.233, 1163.59, -542.704, 1197.35, -535.452, 1229.07, -528.548, 1258.51, -522.066, 1285.42, -516.076, 1309.55, -510.651, 1348.47, -501.785, 1382, -494)
-width = 150.0
+points = PackedVector2Array(263, 541, 263.833, 520.336, 264.741, 495.999, 265.857, 463.652, 267.092, 424.291, 268.357, 378.911, 268.973, 354.274, 269.563, 328.506, 270.115, 301.731, 270.619, 274.073, 271.064, 245.656, 271.438, 216.606, 271.73, 187.046, 271.929, 157.101, 272.024, 126.895, 272.003, 96.5529, 271.856, 66.1987, 271.572, 35.957, 271.138, 5.9521, 270.545, -23.6915, 269.78, -52.8495, 268.834, -81.3973, 267.693, -109.211, 266.348, -136.165, 264.788, -162.136, 263, -187, 261.369, -211.799, 260.27, -237.642, 259.677, -264.499, 259.567, -292.341, 259.916, -321.14, 260.698, -350.867, 261.89, -381.492, 263.467, -412.988, 265.405, -445.324, 267.679, -478.473, 270.264, -512.405, 273.138, -547.091, 276.274, -582.503, 279.649, -618.612, 283.238, -655.389, 287.017, -692.805, 290.961, -730.831, 295.047, -769.438, 299.249, -808.598, 303.543, -848.281, 307.906, -888.458, 312.311, -929.102, 316.736, -970.183, 321.155, -1011.67, 325.545, -1053.54, 329.88, -1095.76, 334.137, -1138.3, 338.291, -1181.13, 342.318, -1224.22, 346.192, -1267.56, 349.891, -1311.09, 353.389, -1354.81, 356.425, -1397.49, 358.788, -1438.04, 360.531, -1476.57, 361.705, -1513.19, 362.363, -1548.01, 362.556, -1581.14, 362.337, -1612.69, 361.757, -1642.79, 360.869, -1671.54, 359.724, -1699.05, 358.376, -1725.43, 356.875, -1750.81, 353.624, -1798.97, 350.388, -1844.44, 347.584, -1888.1, 345.627, -1930.87, 344.935, -1973.64, 345.922, -2017.32, 349.006, -2062.79, 354.603, -2110.96, 358.474, -2136.34, 363.129, -2162.73, 368.62, -2190.25, 375, -2219)
+width = 200.0
 texture = ExtResource("2_v5di0")
 texture_mode = 1
 metadata/_edit_lock_ = true
 
+[node name="Timer" type="Timer" parent="Path"]
+wait_time = 2.0
+autostart = true
+
 [node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(288, 336)
 script = ExtResource("3_meqjs")
+
+[node name="Car" type="Sprite2D" parent="Player"]
+position = Vector2(0, 8)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_qi03k")
 
 [node name="Col" type="CollisionShape2D" parent="Player"]
 shape = SubResource("CapsuleShape2D_tln7t")
+
+[node name="Grass" type="Sprite2D" parent="Player"]
+show_behind_parent = true
+top_level = true
+z_index = -100
+texture_repeat = 2
+position = Vector2(296, 248)
+texture = ExtResource("5_id1i5")
+region_enabled = true
+region_rect = Rect2(0, 0, 1440, 1440)
+
+[node name="Cloud" type="Sprite2D" parent="Player"]
+modulate = Color(0, 0, 0, 0.286)
+show_behind_parent = true
+top_level = true
+z_index = 1
+texture_repeat = 2
+position = Vector2(296, 248)
+scale = Vector2(3, 3)
+texture = ExtResource("6_yhhpp")
+region_enabled = true
+region_rect = Rect2(-999, 0, 1440, 1440)
+
+[node name="Cam" type="Camera2D" parent="Player"]
+offset = Vector2(0, -120)
+zoom = Vector2(0.8, 0.8)
+process_callback = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 3.0
+rotation_smoothing_enabled = true
+rotation_smoothing_speed = 2.0
+
+[node name="Smoke" type="CPUParticles2D" parent="Player"]
+position = Vector2(16, 48)
+amount = 4
+texture = ExtResource("5_5jckg")
+gravity = Vector2(0, 0)
+angle_min = -311.4
+angle_max = 291.9
+scale_amount_curve = SubResource("Curve_jtax1")
+color_ramp = SubResource("Gradient_ncpum")
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("6_s36ri")
+
+[node name="Control" type="Control" parent="UI"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DownLeft" type="Control" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+
+[node name="Wheel" type="Sprite2D" parent="UI/Control/DownLeft"]
+position = Vector2(80, -32)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("8_h38pa")
+
+[node name="Left" type="TouchScreenButton" parent="UI/Control/DownLeft"]
+position = Vector2(40, -72)
+shape = SubResource("RectangleShape2D_orp6l")
+passby_press = true
+action = "ui_left"
+
+[node name="Right" type="TouchScreenButton" parent="UI/Control/DownLeft"]
+position = Vector2(120, -72)
+shape = SubResource("RectangleShape2D_orp6l")
+passby_press = true
+action = "ui_right"
+
+[connection signal="timeout" from="Path/Timer" to="Path" method="add_road"]
