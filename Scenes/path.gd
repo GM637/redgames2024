@@ -23,6 +23,15 @@ func _process(_delta: float) -> void:
 		var polygon = curve.get_baked_points()
 		$Road.points = polygon
 		$Road2.points = polygon
+	
+	if !Engine.is_editor_hint() :
+		if GameGlobal.player :
+			var p = to_local(GameGlobal.player.global_position)
+			var o = curve.get_closest_offset(p)
+			var t = curve.sample_baked(o)
+			
+			if t.distance_to(p) > 150 :
+				GameGlobal.player.velocity *= 0.6 + (GameGlobal.save.upgrades[2] * 0.05)
 
 func add_road() :
 	
@@ -58,7 +67,7 @@ func add_prop() :
 	
 	var curr = curve.point_count - 2
 	
-	match randi_range(1,3) :
+	match randi_range(1,5) :
 		1:
 			# coins thing
 			var dir = ( float( randi_range(0,1) ) - 0.5) * 2
@@ -70,6 +79,7 @@ func add_prop() :
 				var c = $Coin.duplicate() as Area2D
 				add_child(c)
 				
+				c.show()
 				c.global_position = pos
 		2:
 			# bush thing
@@ -77,20 +87,41 @@ func add_prop() :
 			for i in randi_range(0,2) :
 				var dir = ( float( randi_range(0,1) ) - 0.5) * 2
 				
-				var trans = curve.sample_baked_with_rotation( curve.get_closest_offset(curve.get_point_position(curr)) + (i*90) )
+				var trans = curve.sample_baked_with_rotation( curve.get_closest_offset(curve.get_point_position(curr)) + (i*180) )
 				var pos = trans.origin + (Vector2.RIGHT.rotated(trans.get_rotation()) * randf_range(256,720) * dir)
 				var b = $Bush.duplicate() as Area2D
 				add_child(b)
 				
+				b.show()
 				b.position = pos
 		3:
-			# bush thing
+			# cone thing
 			
-			for i in randi_range(0,5) :
+			for i in randi_range(0,10) :
 				
 				var trans = curve.sample_baked_with_rotation( curve.get_closest_offset(curve.get_point_position(curr)) + (i*90) )
 				var pos = trans.origin + Vector2(randf_range(-256,256),randf_range(-256,256))
 				var c = $Cone.duplicate() as Area2D
 				add_child(c)
 				
+				c.show()
 				c.position = pos
+		4:
+			# hole thing
+			for i in randi_range(0,2) :
+				var trans = curve.sample_baked_with_rotation( curve.get_closest_offset(curve.get_point_position(curr)))
+				var pos = trans.origin + Vector2(randf_range(-256,256),randf_range(-256,256))
+				var c = $Hole.duplicate() as Area2D
+				add_child(c)
+				
+				c.show()
+				c.position = pos
+		5:
+			# flag thing
+			var trans = curve.sample_baked_with_rotation( curve.get_closest_offset(curve.get_point_position(curr)))
+			var pos = trans.origin + Vector2(randf_range(-256,256),randf_range(-256,256))
+			var c = $Flag.duplicate() as Area2D
+			add_child(c)
+			
+			c.show()
+			c.position = pos

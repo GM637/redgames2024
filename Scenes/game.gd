@@ -4,3 +4,8 @@ extends Node2D
 func _ready() -> void:
 	
 	get_child(0).reparent(%SubViewport)
+	GameGlobal.save.Score = 0
+
+func _process(_delta: float) -> void:
+	
+	%End.progress_ratio = 1.0 
