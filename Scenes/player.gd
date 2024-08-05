@@ -44,8 +44,9 @@ func _physics_process(_delta: float) -> void:
 	$SFX/Engine.pitch_scale = velocity.length() / 250.0
 	
 	if Input.is_action_just_pressed("Buds") and %Buds.modulate.a >= 0.99 :
-		%Buds.modulate.a = 0.0
-		get_tree().create_tween().tween_property(%Buds,"modulate",Color.WHITE,10.0-GameGlobal.save.upgrades[3]*0.5)
+		get_tree().create_tween().tween_property(%Buds,"modulate",Color(1,1,1,0),0.5)
+		get_tree().create_tween().tween_property(%Buds,"scale",Vector2(2,2),0.5)
+		$SFX/Powerup.play(0.0)
 		match GameGlobal.save.Equipped :
 			1:
 				coins = 2
@@ -60,6 +61,11 @@ func _physics_process(_delta: float) -> void:
 				Engine.time_scale *= 0.5
 				await get_tree().create_timer(Engine.time_scale * 5.0).timeout
 				Engine.time_scale /= 0.5
+		
+	
+	if %Buds.modulate.a <= 0.0 :
+		get_tree().create_tween().tween_property(%Buds,"modulate",Color.WHITE,10.0-GameGlobal.save.upgrades[3]*0.5)
+		get_tree().create_tween().tween_property(%Buds,"scale",Vector2(1,1),0.5)
 
 func _on_boost_timeout() -> void:
 	if velocity.length() > 500 :

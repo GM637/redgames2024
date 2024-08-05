@@ -21,7 +21,7 @@ func _process(_delta: float) -> void:
 
 func saveData() :
 	
-	var file := FileAccess.open_encrypted_with_pass("user://save1.dat", FileAccess.WRITE,safe)
+	var file := FileAccess.open_encrypted_with_pass("user://save2.dat", FileAccess.WRITE,safe)
 	
 	file.store_string(var_to_str(save))
 	
@@ -36,8 +36,8 @@ func saveData() :
 
 func loadData() :
 	
-	if FileAccess.file_exists("user://save1.dat"):
-		var file := FileAccess.open_encrypted_with_pass("user://save1.dat", FileAccess.READ,safe)
+	if FileAccess.file_exists("user://save2.dat"):
+		var file := FileAccess.open_encrypted_with_pass("user://save2.dat", FileAccess.READ,safe)
 		
 		var gets = str_to_var(file.get_as_text())
 		
