@@ -13,3 +13,13 @@ export_presets.cfg
 .mono/
 data_*/
 mono_crash.*.json
+Export/Buds Racing.apk
+Export/Buds Racing.apk.idsig
+Export/Buds Racing.exe
+Export/Buds Racing.x86_64
+Export/Buds Ride Adventure.apk
+Export/game.zip
+Export/index.html
+Export/index.js
+Export/index.pck
+Export/index.wasm
